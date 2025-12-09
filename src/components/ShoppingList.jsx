@@ -45,6 +45,12 @@ function ShoppingList() {
     return item.category === selectedCategory;
   });
 
+  // add this callback function
+  function handleDeleteItem(deletedItem) {
+    const updatedItems = items.filter(item => item.id !== deletedItem.id);
+    setItems(updatedItems);
+  }
+
   return (
     <div className="ShoppingList">
       <ItemForm onAddItem={handleAddItem} />
@@ -55,7 +61,12 @@ function ShoppingList() {
       <ul className="Items">
         {/* pass it as a prop to Item */}
         {itemsToDisplay.map(item => (
-          <Item key={item.id} item={item} onUpdateItem={handleUpdateItem} />
+          <Item
+            key={item.id}
+            item={item}
+            onUpdateItem={handleUpdateItem}
+            onDeleteItem={handleDeleteItem}
+          />
         ))}
       </ul>
     </div>
